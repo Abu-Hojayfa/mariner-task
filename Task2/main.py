@@ -35,27 +35,27 @@ class MainWindow(QMainWindow):
 
     def open_face_recognition(self):
         path = os.path.join(os.path.dirname(__file__), "face_recogniton.py")
-        subprocess.Popen(["python", path])
+        subprocess.Popen([sys.executable, path])
         
     
     def open_face_tracking(self):
         path = os.path.join(os.path.dirname(__file__), "face_tracking.py")
-        subprocess.Popen(["python", path])
+        subprocess.Popen([sys.executable, path])
         
     
     def open_age_gender(self):
         path = os.path.join(os.path.dirname(__file__), "age_gender.py")
-        subprocess.Popen(["python", path])
+        subprocess.Popen([sys.executable, path])
         
     
     def open_counting(self):
         path = os.path.join(os.path.dirname(__file__), "counting.py")
-        subprocess.Popen(["python", path])
+        subprocess.Popen([sys.executable, path])
         
     
     def open_toolkit(self):
         path = os.path.join(os.path.dirname(__file__), "toolkit.py")
-        subprocess.Popen(["python", path])
+        subprocess.Popen([sys.executable, path])
         
 
 
