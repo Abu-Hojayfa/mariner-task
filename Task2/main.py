@@ -34,28 +34,42 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(container)
 
     def open_face_recognition(self):
+        if hasattr(self, "face_recognition_process") and self.face_recognition_process.poll() is None:        
+            return
+        
         path = os.path.join(os.path.dirname(__file__), "face_recogniton.py")
-        subprocess.Popen([sys.executable, path])
+        self.face_recognition_process = subprocess.Popen([sys.executable, path])
         
     
     def open_face_tracking(self):
+        if hasattr(self, "face_tracking_process") and self.face_tracking_process.poll() is None:
+        
+            return
         path = os.path.join(os.path.dirname(__file__), "face_tracking.py")
-        subprocess.Popen([sys.executable, path])
+        self.face_tracking_process = subprocess.Popen([sys.executable, path])
         
     
     def open_age_gender(self):
+        if hasattr(self, "age_gender_process") and self.age_gender_process.poll() is None:
+        
+            return
         path = os.path.join(os.path.dirname(__file__), "age_gender.py")
-        subprocess.Popen([sys.executable, path])
+        self.age_gender_process =   subprocess.Popen([sys.executable, path])
         
     
     def open_counting(self):
+        if hasattr(self, "counting_process") and self.counting_process.poll() is None:
+            return
         path = os.path.join(os.path.dirname(__file__), "counting.py")
-        subprocess.Popen([sys.executable, path])
+        self.counting_process = subprocess.Popen([sys.executable, path])
         
     
     def open_toolkit(self):
+        if hasattr(self, "toolkit_process") and self.toolkit_process.poll() is None:
+        
+            return
         path = os.path.join(os.path.dirname(__file__), "toolkit.py")
-        subprocess.Popen([sys.executable, path])
+        self.toolkit_process = subprocess.Popen([sys.executable, path])
         
 
 

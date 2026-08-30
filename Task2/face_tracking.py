@@ -15,8 +15,8 @@ while cv.waitKey(1) != ord("x"):
     if not ret:
         print("Error: Could not read frame.")
         break
-    result = model(frame,  verbose=False)
-    cv.imshow("Face Detection", result[0].plot())
+    result = model(frame, imgsz=416 ,verbose=False)
+    cv.imshow("Face Tracking", result[0].plot())
 
 
 vid.release()
