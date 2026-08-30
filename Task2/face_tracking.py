@@ -3,7 +3,7 @@ from ultralytics import YOLO
 
 model = YOLO("model/yolov8m-face.pt")
 
-vid = cv.VideoCapture("data/test.mp4")
+vid = cv.VideoCapture("data/test2.mp4")
 
 if not vid.isOpened():
     print("Error: Could not open video.")
