@@ -3,7 +3,11 @@ import sys
 import subprocess
 from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton
 
-
+STYLE = """
+QMainWindow { background-color: #1e1f26; }
+QPushButton { background-color: #2b2d3a; border: 1px solid #ccc; padding: 5px; color: #fff; font-size: 14px; }
+QPushButton:hover { background-color: #383b4d; }
+"""
 
 
 class MainWindow(QMainWindow):
@@ -75,6 +79,7 @@ class MainWindow(QMainWindow):
 
 
 app = QApplication(sys.argv)
+app.setStyleSheet(STYLE)
 window = MainWindow()
 window.show()
 app.exec()
