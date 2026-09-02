@@ -1,6 +1,7 @@
 # Python virtual environment
 Lib/
 Scripts/
+Include/
 pyvenv.cfg
 
 # Python cache

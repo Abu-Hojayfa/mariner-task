@@ -31,10 +31,10 @@ class MainWindow(QMainWindow):
 
 
         btn_upload.clicked.connect(self.open_upload)
-        # btn_gray.clicked.connect(self.open_gray)
-        # btn_resize.clicked.connect(self.open_resize)
-        # btn_rotate.clicked.connect(self.open_rotate)
-        # btn_blur.clicked.connect(self.open_blur)
+        btn_gray.clicked.connect(self.open_gray)
+        btn_resize.clicked.connect(self.open_resize)
+        btn_rotate.clicked.connect(self.open_rotate)
+        btn_blur.clicked.connect(self.open_blur)
 
         button_layout = QVBoxLayout()
         
@@ -62,10 +62,32 @@ class MainWindow(QMainWindow):
         h, w, ch = rgb_image.shape
         qimage = QImage(rgb_image.data, w, h, ch * w, QImage.Format.Format_RGB888)
         pixmap = QPixmap.fromImage(qimage)
-        scaled_pixmap = pixmap.scaled(980,720, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
-        self.image_label.setPixmap(scaled_pixmap)
 
+        max_w, max_h = 980, 720
+        if w > max_w or h > max_h:
+          pixmap = pixmap.scaled(max_w, max_h, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
 
+        self.image_label.setPixmap(pixmap)
+
+    def open_gray(self):
+        if self.original_frame is not None:
+            gray_frame = cv.cvtColor(self.original_frame, cv.COLOR_BGR2GRAY)
+            self.display_image(cv.cvtColor(gray_frame, cv.COLOR_GRAY2BGR))
+
+    def open_resize(self):
+        if self.original_frame is not None:
+            resized_frame = cv.resize(self.original_frame, None, fx=0.3, fy=0.3)
+            self.display_image(resized_frame)
+
+    def open_rotate(self):
+        if self.original_frame is not None:
+            rotated_frame = cv.rotate(self.original_frame, cv.ROTATE_90_CLOCKWISE)
+            self.display_image(rotated_frame)
+
+    def open_blur(self):
+        if self.original_frame is not None:
+            blurred_frame = cv.GaussianBlur(self.original_frame, (15, 15), 0)
+            self.display_image(blurred_frame)
 
 app = QApplication(sys.argv)
 app.setStyleSheet(STYLE)
