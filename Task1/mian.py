@@ -54,6 +54,8 @@ while running:
                     ball_velocity = 0
                     ball_x = 80
                     ball_velocity = flap_strength
+                    score = 0
+                    pipe_list.clear()
                 elif state == "playing":
                     ball_velocity = flap_strength
 
@@ -86,6 +88,7 @@ while running:
             if (ball_x + ball_radius > pipe["x"] and ball_x - ball_radius < pipe["x"] + pipe_width):
                 if (ball_y - ball_radius < pipe["gap_y"] or ball_y + ball_radius > pipe["gap_y"] + pipe_gap):
                     state = "game_over"
+                    
 
             #score detection
             if not pipe["scored"] and ball_x > pipe["x"] + pipe_width:
@@ -95,17 +98,27 @@ while running:
         if ball_y - ball_radius <= 0 or ball_y + ball_radius > height:
           state = "game_over"
 
+
+    # Draw everything
+
     screen.fill((135, 206, 235))
     pygame.draw.circle(screen, (255, 0, 0), (ball_x, ball_y), ball_radius) 
 
+    
     for pipe in pipe_list:
         pygame.draw.rect(screen, (0, 255, 0), (pipe["x"], 0, pipe_width, pipe["gap_y"]))
-        pygame.draw.rect(screen, (0, 255, 0), (pipe["x"], pipe["gap_y"] + pipe_gap, pipe_width, height - (pipe["gap_y"] + pipe_gap)))
+        pygame.draw.rect(screen, (0, 255, 0), (pipe["x"], pipe["gap_y"] + pipe_gap, pipe_width, height - (pipe["gap_y"] + pipe_gap))) 
+    
+
+    score_font = pygame.font.Font(None, 36)
+    score_text = score_font.render(f"Score: {score}", True, (255, 255, 255))
+    screen.blit(score_text, (10, 10))
+
 
     font = pygame.font.Font(None, 74)    
 
     if state == "game_over":
-        text = font.render("Game Over", True, (255, 255, 255))
+        text = font.render(f"Game Over Score: {score}", True, (255, 255, 255))
     if state == "start":
         text = font.render("Press SPACE to start", True, (255, 255, 255))
 
