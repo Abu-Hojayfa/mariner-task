@@ -8,13 +8,20 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Floppy Ball")
 clock = pygame.time.Clock()
 
+#ball setup
 ball_x = 80
 ball_y = height // 2
 ball_radius = 20
 ball_velocity = 0
 gravity = 0.5
-
 flap_strength = -10
+
+#pipe setup
+pipe_width = 80
+pipe_gap = 200
+pipe_x = width
+pipe_gap_y = 250
+pipe_speed = 3
 
 state = "start" # "start", "playing", "game_over"
 
@@ -48,13 +55,19 @@ while running:
         if ball_x > width // 3:
             ball_x = width // 3
 
+        pipe_x -= pipe_speed
+        if pipe_x + pipe_width < 0:
+            pipe_x = width
+            pipe_gap_y = pygame.randint(100, height - 100 - pipe_gap)
+
         if ball_y - ball_radius <= 0 or ball_y + ball_radius > height:
           state = "game_over"
 
     screen.fill((135, 206, 235))
     pygame.draw.circle(screen, (255, 0, 0), (ball_x, ball_y), ball_radius) 
 
-
+    pygame.draw.rect(screen, (0, 255, 0), (pipe_x, 0, pipe_width, pipe_gap_y))
+    pygame.draw.rect(screen, (0, 255, 0), (pipe_x, pipe_gap_y + pipe_gap, pipe_width, height - (pipe_gap_y + pipe_gap)))
 
     font = pygame.font.Font(None, 74)    
 
