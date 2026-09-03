@@ -27,22 +27,29 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 if state == "start":
-                    
+                    ball_velocity = flap_strength
                     state = "playing"
                 elif state == "game_over":
                     # Reset game state
                     state = "playing"
                     ball_y = height // 2
                     ball_velocity = 0
-                    state = "playing"
-                ball_velocity = flap_strength
+                    ball_x = 80
+                    ball_velocity = flap_strength
+                elif state == "playing":
+                    ball_velocity = flap_strength
 
     if state == "playing":
         ball_velocity += gravity
         ball_y += ball_velocity
 
-    if ball_y - ball_radius <= 0 or ball_y + ball_radius > height:
-        state = "game_over"
+        if ball_x < width // 3:
+            ball_x += 3
+        if ball_x > width // 3:
+            ball_x = width // 3
+
+        if ball_y - ball_radius <= 0 or ball_y + ball_radius > height:
+          state = "game_over"
 
     screen.fill((135, 206, 235))
     pygame.draw.circle(screen, (255, 0, 0), (ball_x, ball_y), ball_radius) 
